@@ -5,12 +5,79 @@
     <meta name="viewport" content="width=device-width" />
     <title>Exam Time Calculator</title>
     <link href="style.css" rel="stylesheet" type="text/css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+    />
+
     <script src="https://cdn.jsdelivr.net/npm/p5@1.4.1/lib/p5.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"
+      integrity="sha512-Eezs+g9Lq4TCCq0wae01s9PuNWzHYoCMkE97e2qdkYthpI0pzC3UGB03lgEHn2XM85hDOUF6qgqqszs+iXU4UA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+
+    <script src="https://cdn.tailwindcss.com"></script>
   </head>
   <body class="window-body">
     <div id="control-panel">
-      control panel
+      <div>
+        <div id="control-panel-header" style="margin-bottom: 12px;">
+          <div class="text-2xl">
+            ClockWork; Exams Time Managemnet Calculator
+          </div>
+        </div>
+
+        <div class="form-field">
+          How much time?
+          <input
+            class="form-input text-black"
+            type="number"
+            value="1"
+            onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+            id="hours-text-input"
+          />
+          <input
+            class="form-input text-black"
+            type="number"
+            value="30"
+            onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+            id="minutes-text-input"
+          />
+          <button class="form-button text-black" id="hours-confirmation">
+            Confirm
+          </button>
+        </div>
+
+        <table
+          class="w-full text-sm text-left text-gray-500 dark:text-gray-400"
+          style="margin-top: 20px;"
+        >
+          <thead
+            class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+          >
+            <tr>
+              <th scope="col" class="px-6 py-3">
+                Question
+              </th>
+              <th scope="col" class="px-6 py-3">
+                Marks Weight
+              </th>
+            </tr>
+          </thead>
+          <tbody id="question-set-view"></tbody>
+        </table>
+      </div>
     </div>
+
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/toastify-js"
+    ></script>
+    <script src="models/questionSet.js"></script>
     <script src="sketch.js"></script>
+    <script src="controller.js"></script>
   </body>
 </html>

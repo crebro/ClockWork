@@ -9,26 +9,33 @@ const clockRadius = 150
 const clockTextPadding = 25
 const clockMargin = 40
 
-let questionSet = [
-  {
-    name: 'Task One',
-    quantity: 25,
-  },
-  {
-    name: 'Task Two',
-    quantity: 25,
-  },
-]
+let questionSet
 
 function setup() {
+  questionSet = [
+    new QuestionSet('Question 1', 25, [random(255), random(255), random(255)]),
+    new QuestionSet('Question 2', 50, [random(255), random(255), random(255)]),
+    // {
+    //   name: 'Some Questions',
+    //   quantity: 25,
+    //   color: [random(255), random(255), random(255)],
+    // },
+    // {
+    //   name: 'Another one',
+    //   quantity: 50,
+    //   color: [random(255), random(255), random(255)],
+    // },
+  ]
+
+  updateQuestionSetView()
+
   background(50)
   createCanvas(windowWidth, (windowHeight * canvasHeightInPercent) / 100)
   drawClocks()
 }
 
-function draw() {}
-
 function drawClocks() {
+  background(50)
   let clockSpace = clockRadius + 40 * 2
   let position = (1 / 2) * (width - clockSpace * hours)
 
@@ -46,8 +53,6 @@ function drawClocks() {
   let clockMarksAccomodation = (1 / actualHours) * totalQuantity
 
   for (let j = 0; j < hours; j++) {
-    let usedHoursInClock = (j + 1) % actualHours
-
     angleSkip = (360 / 12) * (Math.PI / 180)
     currentAngle = -Math.PI / 2 + angleSkip
 
@@ -73,6 +78,13 @@ function drawClocks() {
     accumQuantity = 0
 
     for (i = lastTaskStopDetails.item_id; i < questionSet.length; i++) {
+      console.log(
+        j,
+        questionSet[i],
+        lastTaskStopDetails,
+        clockMarksAccomodation,
+        accumQuantity,
+      )
       let totalTaskQuantity = questionSet[i].quantity
       if (i == lastTaskStopDetails.item_id) {
         totalTaskQuantity =
@@ -80,36 +92,36 @@ function drawClocks() {
       }
 
       if (accumQuantity + totalTaskQuantity > clockMarksAccomodation) {
-        let newColor = [random(255), random(255), random(255)]
         chartElements.push({
           quantity: clockMarksAccomodation - accumQuantity,
-          color: newColor,
+          color: questionSet[i].color,
         })
         lastTaskStopDetails = {
           item_id: i,
           quantity_completion: clockMarksAccomodation - accumQuantity,
-          last_color: newColor,
         }
-        continue
+        break
       }
 
       chartElements.push({
         quantity: totalTaskQuantity,
         color:
           i == lastTaskStopDetails.item_id
-            ? lastTaskStopDetails.last_color
-            : [random(255), random(255), random(255)],
+            ? questionSet[lastTaskStopDetails.item_id].color
+            : questionSet[i].color,
       })
 
       accumQuantity = accumQuantity + totalTaskQuantity
     }
 
-    if (usedHoursInClock < 1) {
+    if (j + 1 > actualHours) {
       chartElements.push({
-        quantity: (1 - usedHoursInClock) * clockMarksAccomodation,
+        quantity: ( j + 1 - actualHours) * clockMarksAccomodation,
         color: [255, 255, 255],
       })
     }
+
+    print('here is something', chartElements)
 
     drawPieChart(chartElements, centerX, centerY)
 

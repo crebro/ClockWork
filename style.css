@@ -3,21 +3,45 @@
 * {
   padding: 0;
   margin: 0;
-  background-color: rgb(50, 50, 50);
   font-family: 'Poppins';
+  background-color: rgb(50, 50, 50);
 }
 
 .window-body {
   display: flex;
   flex-direction: column-reverse;
+  justify-content: space-around;
   overflow-x: hidden;
-  overflow-y: hidden;
 }
 
 #control-panel {
   color: white;
   display: flex;
   align-items: center;
-  justify-content: center;
+  flex-direction: column;
   width: 100%;
+}
+
+.form-field {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form-input {
+  margin-left: 10px;
+  margin-right: 10px;
+  background-color: white;
+  outline: none;
+  padding: 10px;
+  border: none;
+}
+
+.form-button {
+  background-color: white;
+  border: none;
+  outline: none;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 3px;
 }
