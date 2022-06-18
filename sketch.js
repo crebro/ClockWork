@@ -2,8 +2,8 @@ const canvasHeightInPercent = 60
 const controlPanelComponent = document.getElementById('control-panel')
 controlPanelComponent.style.height = `${100 - canvasHeightInPercent}vh`
 
-let hours = 2
-let actualHours = 1.5
+let hours = 4
+let actualHours = 3.5
 
 const clockRadius = 150
 const clockTextPadding = 25
@@ -81,7 +81,12 @@ function drawClocks() {
         })
         lastTaskStopDetails = {
           item_id: i,
-          quantity_completion: clockMarksAccomodation - accumQuantity,
+          quantity_completion:
+            lastTaskStopDetails.item_id != i
+              ? clockMarksAccomodation - accumQuantity
+              : lastTaskStopDetails.quantity_completion +
+                clockMarksAccomodation -
+                accumQuantity,
         }
         break
       }
