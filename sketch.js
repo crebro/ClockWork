@@ -15,16 +15,6 @@ function setup() {
   questionSet = [
     new QuestionSet('Question 1', 25, [random(255), random(255), random(255)]),
     new QuestionSet('Question 2', 50, [random(255), random(255), random(255)]),
-    // {
-    //   name: 'Some Questions',
-    //   quantity: 25,
-    //   color: [random(255), random(255), random(255)],
-    // },
-    // {
-    //   name: 'Another one',
-    //   quantity: 50,
-    //   color: [random(255), random(255), random(255)],
-    // },
   ]
 
   updateQuestionSetView()
@@ -78,13 +68,6 @@ function drawClocks() {
     accumQuantity = 0
 
     for (i = lastTaskStopDetails.item_id; i < questionSet.length; i++) {
-      console.log(
-        j,
-        questionSet[i],
-        lastTaskStopDetails,
-        clockMarksAccomodation,
-        accumQuantity,
-      )
       let totalTaskQuantity = questionSet[i].quantity
       if (i == lastTaskStopDetails.item_id) {
         totalTaskQuantity =
@@ -116,12 +99,10 @@ function drawClocks() {
 
     if (j + 1 > actualHours) {
       chartElements.push({
-        quantity: ( j + 1 - actualHours) * clockMarksAccomodation,
+        quantity: (j + 1 - actualHours) * clockMarksAccomodation,
         color: [255, 255, 255],
       })
     }
-
-    print('here is something', chartElements)
 
     drawPieChart(chartElements, centerX, centerY)
 
