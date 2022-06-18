@@ -31,7 +31,7 @@ timeConfirmation.addEventListener('click', () => {
 
 taskCreationConfirmation.addEventListener('click', () => {
   let taskName = taskNameComponent.value
-  let taskMarksWeight = parseInt(taskMarksWeightComponent.value)
+  let taskMarksWeight = taskMarksWeightComponent.value
 
   if (taskName === '') {
     Toastify({
@@ -54,7 +54,7 @@ taskCreationConfirmation.addEventListener('click', () => {
   }
 
   questionSet.push(
-    new QuestionSet(taskName, taskMarksWeight, [
+    new QuestionSet(taskName, parseInt(taskMarksWeight), [
       random(255),
       random(255),
       random(255),
@@ -62,14 +62,23 @@ taskCreationConfirmation.addEventListener('click', () => {
   )
 
   updateQuestionSetView()
-
   drawClocks()
+
+  taskNameComponent.value = ''
+  taskMarksWeightComponent.value = ''
 })
 
 function updateQuestionSetView() {
   let updatedContent = ``
   for (let i = 0; i < questionSet.length; i++) {
-    updatedContent += questionSet[i].convertToElement()
+    updatedContent += `
+      <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+        ${questionSet[i].convertToElement()}
+        <td class="px-6 py-4">
+          <div class="text-red-500 cursor-pointer" onclick="deleteQuestion(${i})" > Delete </div>
+        </td>
+      </tr>
+    `
   }
   questionSetView.innerHTML = updatedContent
 }
@@ -86,3 +95,9 @@ new Sortable(questionSetView, {
     drawClocks()
   },
 })
+
+function deleteQuestion(index) {
+  questionSet.splice(index, 1)
+  updateQuestionSetView()
+  drawClocks()
+}
