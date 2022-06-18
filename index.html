@@ -51,6 +51,26 @@
           </button>
         </div>
 
+        <div class="form-field mt-4">
+          Add new task
+          <input
+            class="form-input text-black"
+            type="text"
+            placeholder="Task name"
+            id="task-name-text-input"
+          />
+          <input
+            class="form-input text-black"
+            type="number"
+            placeholder="Task marks weight"
+            onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+            id="task-marks-weight-text-input"
+          />
+          <button class="form-button text-black" id="create-task-confirmation">
+            Create
+          </button>
+        </div>
+
         <table
           class="w-full text-sm text-left text-gray-500 dark:text-gray-400"
           style="margin-top: 20px;"

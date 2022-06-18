@@ -2,8 +2,8 @@ const canvasHeightInPercent = 60
 const controlPanelComponent = document.getElementById('control-panel')
 controlPanelComponent.style.height = `${100 - canvasHeightInPercent}vh`
 
-let hours = 4
-let actualHours = 3.5
+let actualHours = 1.5
+let hours = Math.ceil(actualHours)
 
 const clockRadius = 150
 const clockTextPadding = 25
