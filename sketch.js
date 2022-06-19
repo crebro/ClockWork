@@ -24,6 +24,11 @@ function setup() {
   drawClocks()
 }
 
+function windowResized() {
+  resizeCanvas(windowWidth, (windowHeight * canvasHeightInPercent) / 100)
+  drawClocks()
+}
+
 function drawClocks() {
   background(50)
   let clockSpace = clockRadius * 2 + clockMargin * 2
