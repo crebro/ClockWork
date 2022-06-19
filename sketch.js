@@ -7,7 +7,7 @@ let hours = Math.ceil(actualHours)
 
 const clockRadius = 150
 const clockTextPadding = 25
-const clockMargin = 40
+const clockMargin = 10
 
 let questionSet
 
@@ -26,7 +26,7 @@ function setup() {
 
 function drawClocks() {
   background(50)
-  let clockSpace = clockRadius + 40 * 2
+  let clockSpace = clockRadius * 2 + clockMargin * 2
   let position = (1 / 2) * (width - clockSpace * hours)
 
   let totalQuantity = 0
@@ -46,7 +46,7 @@ function drawClocks() {
     angleSkip = (360 / 12) * (Math.PI / 180)
     currentAngle = -Math.PI / 2 + angleSkip
 
-    const centerX = position
+    const centerX = position + clockRadius + clockMargin
     const centerY = height / 2
 
     circle(centerX, centerY, clockRadius * 2)
@@ -111,7 +111,7 @@ function drawClocks() {
 
     drawPieChart(chartElements, centerX, centerY)
 
-    position = position + clockSpace * 1.5
+    position = position + clockSpace
   }
 }
 
