@@ -10,12 +10,16 @@ const clockTextPadding = 25
 const clockMargin = 10
 
 let questionSet
+let revisionTime = 15
+
+let revisionTimeColor
 
 function setup() {
   questionSet = [
     new QuestionSet('Question 1', 25, [random(255), random(255), random(255)]),
     new QuestionSet('Question 2', 50, [random(255), random(255), random(255)]),
   ]
+  revisionTimeColor = [random(255), random(255), random(255)]
 
   updateQuestionSetView()
 
@@ -34,10 +38,14 @@ function drawClocks() {
   let clockSpace = clockRadius * 2 + clockMargin * 2
   let position = (1 / 2) * (width - clockSpace * hours)
 
-  let totalQuantity = 0
+  let marksTotalQuantity = 0
   for (i = 0; i < questionSet.length; i++) {
-    totalQuantity += questionSet[i].quantity
+    marksTotalQuantity += questionSet[i].quantity
   }
+
+  let totalQuantity =
+    (marksTotalQuantity * actualHours * 60) / (actualHours * 60 - revisionTime)
+  let revisionMarkEquivalent = totalQuantity - marksTotalQuantity
 
   let lastTaskStopDetails = {
     item_id: 0,
@@ -105,6 +113,13 @@ function drawClocks() {
       })
 
       accumQuantity = accumQuantity + totalTaskQuantity
+    }
+
+    if (j + 1 == hours) {
+      chartElements.push({
+        quantity: revisionMarkEquivalent,
+        color: revisionTimeColor,
+      })
     }
 
     if (j + 1 > actualHours) {

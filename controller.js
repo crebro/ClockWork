@@ -12,16 +12,18 @@ const taskCreationConfirmation = document.getElementById(
 )
 
 timeConfirmation.addEventListener('click', () => {
-  let minutesValue = parseInt(minutesComponent.value)
-  if (minutesValue > 59 || minutesValue < 0) {
-    Toastify({
-      text: 'Minutes must be between 0 and 59',
-      duration: 3000,
-      gravity: 'top',
-    }).showToast()
+  let minutesValue =
+    minutesComponent.value != '' ? parseInt(minutesComponent.value) : 0
+  if (minutesValue)
+    if (minutesValue > 59 || minutesValue < 0) {
+      Toastify({
+        text: 'Minutes must be between 0 and 59',
+        duration: 3000,
+        gravity: 'top',
+      }).showToast()
 
-    return
-  }
+      return
+    }
 
   actualHours = parseFloat(hoursComponent.value) + minutesValue / 60
   hours = Math.ceil(actualHours)
@@ -94,6 +96,12 @@ new Sortable(questionSetView, {
 
     drawClocks()
   },
+})
+
+let revisionElement = document.getElementById('revision-time-input-slider')
+revisionElement.addEventListener('input', (e) => {
+  revisionTime = e.target.value
+  drawClocks()
 })
 
 function deleteQuestion(index) {
