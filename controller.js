@@ -90,10 +90,8 @@ new Sortable(questionSetView, {
   onUpdate: (e) => {
     let newIndex = e.newIndex
     let oldIndex = e.oldIndex
-    let temp = questionSet[oldIndex]
-    questionSet[oldIndex] = questionSet[newIndex]
-    questionSet[newIndex] = temp
-
+    //  move the element with the old index to the new index in the questionset array
+    questionSet.splice(newIndex, 0, questionSet.splice(oldIndex, 1)[0])
     drawClocks()
   },
 })
